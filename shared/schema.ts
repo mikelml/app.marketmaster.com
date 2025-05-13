@@ -1,6 +1,7 @@
-import { pgTable, text, serial, integer, boolean, timestamp, doublePrecision } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, boolean, timestamp, doublePrecision, primaryKey } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
+import { relations } from "drizzle-orm";
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
@@ -12,6 +13,8 @@ export const users = pgTable("users", {
   role: text("role").default("customer")
 });
 
+// User relations defined below to avoid circular reference
+
 export const categories = pgTable("categories", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
@@ -19,6 +22,8 @@ export const categories = pgTable("categories", {
   description: text("description"),
   imageUrl: text("image_url")
 });
+
+// Category relations defined below to avoid circular reference
 
 export const products = pgTable("products", {
   id: serial("id").primaryKey(),
@@ -39,12 +44,16 @@ export const products = pgTable("products", {
   isBestSeller: boolean("is_best_seller").default(false)
 });
 
+// Product relations defined below to avoid circular reference
+
 export const cartItems = pgTable("cart_items", {
   id: serial("id").primaryKey(),
   userId: integer("user_id").notNull(),
   productId: integer("product_id").notNull(),
   quantity: integer("quantity").notNull().default(1)
 });
+
+// Cart item relations defined below to avoid circular reference
 
 export const orders = pgTable("orders", {
   id: serial("id").primaryKey(),
@@ -54,6 +63,8 @@ export const orders = pgTable("orders", {
   createdAt: timestamp("created_at").defaultNow()
 });
 
+// Order relations defined below to avoid circular reference
+
 export const orderItems = pgTable("order_items", {
   id: serial("id").primaryKey(),
   orderId: integer("order_id").notNull(),
@@ -61,6 +72,8 @@ export const orderItems = pgTable("order_items", {
   price: doublePrecision("price").notNull(),
   quantity: integer("quantity").notNull()
 });
+
+// Order item relations defined below to avoid circular reference
 
 export const analytics = pgTable("analytics", {
   id: serial("id").primaryKey(),
@@ -135,3 +148,52 @@ export const loginSchema = z.object({
 });
 
 export type LoginData = z.infer<typeof loginSchema>;
+
+// Define all relations after table definitions to avoid circular references
+export const usersRelations = relations(users, ({ many }) => ({
+  orders: many(orders),
+  cartItems: many(cartItems)
+}));
+
+export const categoriesRelations = relations(categories, ({ many }) => ({
+  products: many(products)
+}));
+
+export const productsRelations = relations(products, ({ one, many }) => ({
+  category: one(categories, {
+    fields: [products.categoryId],
+    references: [categories.id]
+  }),
+  cartItems: many(cartItems),
+  orderItems: many(orderItems)
+}));
+
+export const cartItemsRelations = relations(cartItems, ({ one }) => ({
+  user: one(users, {
+    fields: [cartItems.userId],
+    references: [users.id]
+  }),
+  product: one(products, {
+    fields: [cartItems.productId],
+    references: [products.id]
+  })
+}));
+
+export const ordersRelations = relations(orders, ({ one, many }) => ({
+  user: one(users, {
+    fields: [orders.userId],
+    references: [users.id]
+  }),
+  orderItems: many(orderItems)
+}));
+
+export const orderItemsRelations = relations(orderItems, ({ one }) => ({
+  order: one(orders, {
+    fields: [orderItems.orderId],
+    references: [orders.id]
+  }),
+  product: one(products, {
+    fields: [orderItems.productId],
+    references: [products.id]
+  })
+}));
