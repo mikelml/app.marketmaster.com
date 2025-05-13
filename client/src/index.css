@@ -24,7 +24,7 @@
 --ring: 215 80% 40%;
 --radius: 0.5rem;
   }
-  .dark {
+  /* .dark {
       --background: 215 30% 12%;
 --foreground: 210 40% 98%;
 --muted: 215 25% 20%;
@@ -45,7 +45,7 @@
 --destructive-foreground: 0 0% 98%;
 --ring: 215 80% 60%;
 --radius: 0.5rem;
-  }
+  } */
 
 @layer base {
   * {

@@ -20,7 +20,7 @@ export default function CartSidebar() {
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleCart = () => {
-    setIsVisible(!isVisible);
+    setIsVisible(prev => !prev);
   };
 
   const handleCheckout = () => {
@@ -28,8 +28,12 @@ export default function CartSidebar() {
   };
 
   useEffect(() => {
+    setIsVisible(false);
+    // const cartSidebar = document.getElementById('cart-sidebar');
+    // if (!cartSidebar) return;
     const cartButton = document.getElementById('cart-button');
     const closeSidebar = document.getElementById('close-cart');
+    const viewCart = document.getElementById('view-cart-sidebar');
     
     const handleCartClick = () => {
       setIsVisible(true);
@@ -41,10 +45,11 @@ export default function CartSidebar() {
     
     cartButton?.addEventListener('click', handleCartClick);
     closeSidebar?.addEventListener('click', handleCloseClick);
-    
+    viewCart?.addEventListener('click', handleCloseClick);
     return () => {
       cartButton?.removeEventListener('click', handleCartClick);
       closeSidebar?.removeEventListener('click', handleCloseClick);
+      viewCart?.removeEventListener('click', handleCloseClick);
     };
   }, []);
 
@@ -52,7 +57,7 @@ export default function CartSidebar() {
     <div 
       id="cart-sidebar"
       className={`fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-lg transform ${
-        isVisible ? 'translate-x-0' : 'translate-x-full'
+        !isVisible ? 'translate-x-0' : 'translate-x-full'
       } transition-transform duration-300 z-50`}
     >
       <div className="flex flex-col h-full">
@@ -64,6 +69,7 @@ export default function CartSidebar() {
             id="close-cart" 
             onClick={toggleCart}
           >
+            {!isVisible? 'ads' : '123'}
             <X className="h-5 w-5 text-gray-500" />
           </Button>
         </div>
@@ -178,7 +184,8 @@ export default function CartSidebar() {
                 Checkout
               </Button>
               <Link href="/cart">
-                <Button 
+                <Button
+                  id="view-cart-sidebar"
                   variant="outline" 
                   className="w-full border-primary text-primary hover:bg-primary hover:text-white"
                   onClick={toggleCart}
