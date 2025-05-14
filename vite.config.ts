@@ -9,6 +9,9 @@ const __dirname = path.dirname(__filename);
 export default defineConfig({
   server: {
     port: process.env.PORT as unknown as number,
+    cors: {
+      origin: "https://app-marketmaster-com.vercel.app",
+    },
   },
   plugins: [
     react(),
