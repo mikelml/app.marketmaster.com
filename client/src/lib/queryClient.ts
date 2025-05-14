@@ -1,4 +1,10 @@
-import { QueryClient, QueryFunction } from "@tanstack/react-query";
+
+export const API_URL =
+  import.meta.env.PROD
+    ? "https://tu-backend.vercel.app/api"
+    : "http://localhost:3000/api";
+
+  import { QueryClient, QueryFunction } from "@tanstack/react-query";
 
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
@@ -29,7 +35,7 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
-    const res = await fetch(queryKey[0] as string, {
+    const res = await fetch(`appmarketmastercom-production.up.railway.app/${queryKey[0]}` as string, {
       credentials: "include",
     });
 

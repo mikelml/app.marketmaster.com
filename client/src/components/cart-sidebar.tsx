@@ -69,7 +69,6 @@ export default function CartSidebar() {
             id="close-cart" 
             onClick={toggleCart}
           >
-            {!isVisible? 'ads' : '123'}
             <X className="h-5 w-5 text-gray-500" />
           </Button>
         </div>
