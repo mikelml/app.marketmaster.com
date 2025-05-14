@@ -28,7 +28,7 @@ export default function CartSidebar() {
   };
 
   useEffect(() => {
-    setIsVisible(false);
+    // setIsVisible(t);
     // const cartSidebar = document.getElementById('cart-sidebar');
     // if (!cartSidebar) return;
     const cartButton = document.getElementById('cart-button');

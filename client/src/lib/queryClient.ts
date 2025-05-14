@@ -35,7 +35,7 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
-    const res = await fetch(`appmarketmastercom-production.up.railway.app/${queryKey[0]}` as string, {
+    const res = await fetch(`https://appmarketmastercom-production.up.railway.app${queryKey[0]}` as string, {
       credentials: "include",
     });
 
