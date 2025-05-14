@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Product } from "@shared/schema";
 import { useCart } from "@/hooks/use-cart";
 import { useAuth } from "@/hooks/use-auth";
@@ -13,6 +13,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const [, navigate] = useLocation();
   const { addToCart } = useCart();
   const { user } = useAuth();
   const [isHovered, setIsHovered] = useState(false);
@@ -26,7 +27,8 @@ export default function ProductCard({ product }: ProductCardProps) {
     e.stopPropagation();
     
     if (!user) {
-      window.location.href = "/auth";
+      navigate("/auth")
+      // window.location.href = "/auth";
       return;
     }
     
