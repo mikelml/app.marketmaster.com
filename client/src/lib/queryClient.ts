@@ -1,8 +1,8 @@
 
-export const API_URL =
-  import.meta.env.PROD
-    ? "https://tu-backend.vercel.app/api"
-    : "http://localhost:3000/api";
+// export const API_URL =
+//   import.meta.env.PROD
+//     ? "https://tu-backend.vercel.app/api"
+//     : "http://localhost:3000/api";
 
   import { QueryClient, QueryFunction } from "@tanstack/react-query";
 
