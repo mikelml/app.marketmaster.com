@@ -28,7 +28,6 @@ export default function ProductCard({ product }: ProductCardProps) {
     
     if (!user) {
       navigate("/auth")
-      // window.location.href = "/auth";
       return;
     }
     
