@@ -25,6 +25,7 @@ export default function CartSidebar() {
 
   const handleCheckout = () => {
     checkout.mutate();
+    setIsVisible(false);
   };
 
   useEffect(() => {
@@ -34,6 +35,8 @@ export default function CartSidebar() {
     const cartButton = document.getElementById('cart-button');
     const closeSidebar = document.getElementById('close-cart');
     const viewCart = document.getElementById('view-cart-sidebar');
+    const continueCart = document.getElementById('continue-cart-sidebar');
+    
     
     const handleCartClick = () => {
       setIsVisible(true);
@@ -46,10 +49,12 @@ export default function CartSidebar() {
     cartButton?.addEventListener('click', handleCartClick);
     closeSidebar?.addEventListener('click', handleCloseClick);
     viewCart?.addEventListener('click', handleCloseClick);
+    continueCart?.addEventListener('click', handleCloseClick);
     return () => {
       cartButton?.removeEventListener('click', handleCartClick);
       closeSidebar?.removeEventListener('click', handleCloseClick);
       viewCart?.removeEventListener('click', handleCloseClick);
+      continueCart?.addEventListener('click', handleCloseClick);
     };
   }, []);
 
@@ -96,7 +101,7 @@ export default function CartSidebar() {
               Your cart is empty
             </p>
             <Link href="/products">
-              <Button className="bg-primary hover:bg-primary/90">
+              <Button id="continue-cart-sidebar" onClick={toggleCart} className="bg-primary hover:bg-primary/90">
                 Continue Shopping
               </Button>
             </Link>

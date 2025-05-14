@@ -1,10 +1,4 @@
-
-// export const API_URL =
-//   import.meta.env.PROD
-//     ? "https://tu-backend.vercel.app/api"
-//     : "http://localhost:3000/api";
-
-  import { QueryClient, QueryFunction } from "@tanstack/react-query";
+import { QueryClient, QueryFunction } from "@tanstack/react-query";
 
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
@@ -18,7 +12,7 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
-  const res = await fetch(url, {
+  const res = await fetch(`${import.meta.env.API_URL || ''}${url}`, {
     method,
     headers: data ? { "Content-Type": "application/json" } : {},
     body: data ? JSON.stringify(data) : undefined,
@@ -35,7 +29,7 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
-    const res = await fetch(`https://appmarketmastercom-production.up.railway.app${queryKey[0]}` as string);
+    const res = await fetch(`${import.meta.env.API_URL || ''}${queryKey[0]}` as string);
 
     if (unauthorizedBehavior === "returnNull" && res.status === 401) {
       return null;
