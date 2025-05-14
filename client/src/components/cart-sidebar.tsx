@@ -17,7 +17,7 @@ export default function CartSidebar() {
     subtotal,
     totalItems,
   } = useCart();
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   const toggleCart = () => {
     setIsVisible(prev => !prev);
@@ -28,7 +28,7 @@ export default function CartSidebar() {
   };
 
   useEffect(() => {
-    // setIsVisible(t);
+    // setIsVisible(true);
     // const cartSidebar = document.getElementById('cart-sidebar');
     // if (!cartSidebar) return;
     const cartButton = document.getElementById('cart-button');

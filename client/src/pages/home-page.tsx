@@ -153,7 +153,7 @@ export default function HomePage() {
 
             <div className="relative rounded-xl overflow-hidden h-64 group">
               <img
-                src="https://pixabay.com/get/ga82a8754020c7cded7f0cd16f19b2e476b610c6d1c227f89db877eb53f710bcff06f20f947bc5010c84346154f9b7b77e90477b06ae8ee898055fefa304557f8_1280.jpg"
+                src="https://pictures.autods.com/OfficialSite/New/20201103091044/The-Best-10-Trending-Tech-Gadgets-Dropshipping-Products-To-Sell-in-2021.png"
                 alt="Tech Gadgets"
                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
