@@ -136,7 +136,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="relative rounded-xl overflow-hidden h-64 group">
               <img
-                src="https://pixabay.com/get/g3d4e6a18091a5a28e946ff2c43c9fcab1c7dffe4b03880665d6b96198126f18e5a61f9797a044acfef0a6454cbb582a5ce4292b9221045dc427aa32a1b1cf585_1280.jpg"
+                src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/620563470.jpg?k=765c163268e92e82d7923f706e5742d1a80916f94f03d9343e3989ebf35a1f9c&o=&hp=1"
                 alt="Home Furniture Sale"
                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
